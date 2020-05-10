@@ -1,0 +1,56 @@
+div.data_area {
+    width: 600px;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+  }
+   
+  /* タイトル部分 */
+  table.data_title {
+    width: 600px;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0; /* tableのcellspacing="0"の代わり */
+  }
+   
+  table.data_title th {
+    border-top: 1px solid #CCC;
+    background: #EEF1F4;
+  }
+   
+  table.data_title th,
+  table.data_title td {
+    padding: 2px;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+  }
+   
+  /* データ部分 */
+  div.scroll_box {
+    width: 600px;
+    max-height: 100px;
+    overflow-y: scroll; /* 縦スクロール */
+  }
+   
+  table.data {
+    width: 600px;
+    border-collapse: separate;
+    border-spacing: 0; /* tableのcellspacing="0"の代わり */
+    table-layout: fixed;　/* 内容を固定 */
+  }
+   
+  table.data th,
+  table.data td {
+    padding: 2px;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+  }
+   
+  table.data td {
+    overflow: hidden; /* データが幅を超えたとき非表示に */
+    white-space: nowrap; /* データの折り返しを防止 */
+  }
+   
+  table.data td p {
+    margin: 0; /* 余分なマージンを消去 */
+  }
