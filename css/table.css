@@ -3,6 +3,7 @@ div.data_area {
     border-right: 1px solid #CCC;
     border-bottom: 1px solid #CCC;
     border-left: 1px solid #CCC;
+    text-align: center;
   }
    
   /* タイトル部分 */
@@ -31,10 +32,15 @@ div.data_area {
     max-height: 100px;
     overflow-y: scroll; /* 縦スクロール */
     overflow-x: hidden; /* 縦スクロール 非表示*/
+    -ms-overflow-style: none;/*IE,Edge対応*/
+  }
+  div.scroll_box::-webkit-scrollbar{/*Chrome,Safariで対応*/
+      display: none;
   }
    
   table.data {
     width: 600px;
+    background-color: white;
     border-collapse: separate;
     border-spacing: 0; /* tableのcellspacing="0"の代わり */
     table-layout: fixed;　/* 内容を固定 */
