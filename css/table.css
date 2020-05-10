@@ -30,6 +30,7 @@ div.data_area {
     width: 600px;
     max-height: 100px;
     overflow-y: scroll; /* 縦スクロール */
+    overflow-x: hidden; /* 縦スクロール 非表示*/
   }
    
   table.data {
