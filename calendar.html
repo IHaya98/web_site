@@ -16,6 +16,7 @@
     <script src='./fullcalendar-4.4.2/packages/list/main.js'></script>
     <script src='./static/js/jquery-3.5.1.min.js'></script>
     <script src='./static/js/bootstrap.min.js'></script>
+    <script src='./static/js/transport_tbl.js'></script>
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -38,17 +39,71 @@
                     alert('Clicked on: ' + info.dateStr);
                     alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
                     alert('Current view: ' + info.view.type);
+                    $("#calendarModal .modal").modal("toggle");
                 },
                 events: './events.json',
                 eventTimeFormat: { hour: 'numeric', minute: '2-digit' }
             });
 
             calendar.render();
+            $(".fc-timeGridWeek-button").on("click",function(event){
+                $(".fc-view").children("table").attr("id","edit");
+                //matrix_transform("edit");
+            })
+            
 
 
-            $('#myModal').on('shown.bs.modal', function () {
-                $('#myInput').trigger('focus')
+            //モーダルの作成
+            var form = $("#calendarModal" + " form");
+            $(".actionType", form).val(actionType);
+            var request = (function (e) {
+                var postData = form.serializeArray();
+                var formURL = form.attr("action");
+                $.ajax({
+                    url: formURL,
+                    type: "POST",
+                    data: postData,
+                    success: function (data, textStatus, jqXHR) {
+                        var dummyDiv = document.createElement("div");
+                        console.log(data);
+                        dummyDiv.innerHTML = data;
+                        if (dummyDiv.querySelector(".headerText").innerText == "エラー") {
+                            var errmsg = dummyDiv.querySelector(".mainContent textarea").value;
+                            var errs = document.querySelector(modalID + " .modal-body .errMsg");
+                            var divTag = document.createElement("div");
+                            divTag.setAttribute("class", "err thismodalerr");
+                            divTag.setAttribute("style", "width:100%");
+                            divTag.innerText = errmsg;
+                            errs.appendChild(divTag);
+                        } else {
+                            $(".modal-body", form).html(dummyDiv.querySelector(".modal-body").innerHTML);
+                            if (postcallback) {
+                                postcallback(form);
+                            }
+                        }
+
+                    },
+                    error: function (jqXHR, status, error) {
+                        console.log(status + ": " + error);
+                        if (jqXHR.responseJSON) {
+                            console.log(jqXHR.responseJSON);
+                        }
+                    }
+                });
+                e.preventDefault();
             });
+            $(modalID).on("shown.bs.modal", function (e) {
+                precallback(form);
+                $(".actionType", form).val("search");
+                request(e);
+            });
+            $(modalID).on("hide.bs.modal", function (e) {
+                precallback(form);
+            });
+            $(modalID + " form").on("submit", request);
+            $(modalID + " .modal-dialog").draggable();
+
+
 
         });
 
@@ -71,12 +126,7 @@
 
 <body>
 
-    <div id='calendar'></div>
-
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#calendarModal">
-        予定登録
-    </button>
+    <div id='calendar' data-toggle="modal" data-target="#calendarModal"></div>
 
     <!-- Modal -->
     <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
