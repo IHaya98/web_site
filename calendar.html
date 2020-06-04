@@ -38,8 +38,6 @@
                     alert('Clicked on: ' + info.dateStr);
                     alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
                     alert('Current view: ' + info.view.type);
-                    // change the day's background color just for fun
-                    info.dayEl.style.backgroundColor = 'red';
                 },
                 events: './events.json',
                 eventTimeFormat: { hour: 'numeric', minute: '2-digit' }
