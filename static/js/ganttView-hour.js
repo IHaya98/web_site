@@ -165,32 +165,33 @@ behavior: {
 			var monthsDiv = jQuery("<div>", { "class": "ganttview-hzheader-months" });
 			var daysDiv = jQuery("<div>", { "class": "ganttview-hzheader-days" });
 			var hoursDiv = jQuery("<div>", { "class": "ganttview-hzheader-hours" });
-			var totalW = 0;
+			//var totalW = 0;
+			var totalWs = 0 ;
 			for (var y in dates) {
 				for (var m in dates[y]) {
-					var w = dates[y][m].length * cellWidth;
-					totalW = totalW + w;
-					monthsDiv.append(jQuery("<div>", {
-						"class": "ganttview-hzheader-month",
-						"css": { "width": (w - 1) + "px" }
-					}).append(y + "/" + m));
 					for (var d in dates[y][m]) {
-						var w = dates[y][m][d].length * cellWidth;
-						totalW = totalW + w;
+						var ws = dates[y][m][d].length * cellWidth;
+						totalWs = totalWs+ ws;
 						daysDiv.append(jQuery("<div>", {
 							"class": "ganttview-hzheader-day",
-							"css": { "width": (w - 1) + "px" }
+							"css": { "width": (ws - 1) + "px" }
 						}).append(d));
 						for (var h in dates[y][m][d]) {
 							hoursDiv.append(jQuery("<div>", { "class": "ganttview-hzheader-hour" })
 								.append(dates[y][m][d][h].getHours()));
 						}
 					}
+					// var w = dates[y][m].length * cellWidth;
+					// totalW = totalW + w;
+					// monthsDiv.append(jQuery("<div>", {
+					// 	"class": "ganttview-hzheader-month",
+					// 	"css": { "width": (totalWs+w - 1) + "px" }
+					// }).append(y + "/" + m));
 				}
 			}
-			monthsDiv.css("width", totalW + "px");
-			daysDiv.css("width", totalW + "px");
-			hoursDiv.css("width", totalW + "px");
+			// monthsDiv.css("width", totalWs + "px");
+			daysDiv.css("width", totalWs + "px");
+			hoursDiv.css("width", totalWs + "px");
 			headerDiv.append(monthsDiv).append(daysDiv).append(hoursDiv);
 			div.append(headerDiv);
 		}
@@ -332,15 +333,15 @@ behavior: {
 			var offset = block.offset().left - container.offset().left - 1 + scroll;
 
 			// Set new start date
-			var daysFromStart = Math.round(offset / cellWidth);
-			var newStart = startDate.clone().addDays(daysFromStart);
+			var hoursFromStart = Math.round(offset / cellWidth);
+			var newStart = startDate.clone().addHours(hoursFromStart);
 			block.data("block-data").start = newStart;
 
 			// Set new end date
 			var width = block.outerWidth();
-			var numberOfDays = Math.round(width / cellWidth) - 1;
-			block.data("block-data").end = newStart.clone().addDays(numberOfDays);
-			jQuery("div.ganttview-block-text", block).text(numberOfDays + 1);
+			var numberOfHours = Math.round(width / cellWidth) - 1;
+			block.data("block-data").end = newStart.clone().addHours(numberOfHours);
+			jQuery("div.ganttview-block-text", block).text(numberOfHours + 1);
 
 			// Remove top and left properties to avoid incorrect block positioning,
 			// set position to relative to keep blocks relative to scrollbar when scrolling
