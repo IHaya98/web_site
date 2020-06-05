@@ -167,22 +167,22 @@ behavior: {
 			var hoursDiv = jQuery("<div>", { "class": "ganttview-hzheader-hours" });
 			var minutesDiv = jQuery("<div>", { "class": "ganttview-hzheader-minutes" });
 			//var totalW = 0;
-			var totalWs = 0;
+			var totalWs = 0 ;
 			for (var y in dates) {
 				for (var m in dates[y]) {
 					for (var d in dates[y][m]) {
 						var ws = dates[y][m][d].length * cellWidth;
-						totalWs = totalWs + ws;
+						totalWs = totalWs+ ws;
 						daysDiv.append(jQuery("<div>", {
 							"class": "ganttview-hzheader-day",
 							"css": { "width": (ws - 1) + "px" }
-						}).append(y + "/" + monthNames[m] + "/" + d));
+						}).append(y+"/"+monthNames[m]+"/"+d));
 						for (var h in dates[y][m][d]) {
 							hoursDiv.append(jQuery("<div>", { "class": "ganttview-hzheader-hour" })
 								.append(dates[y][m][d][h].getHours()));
-							for (var mi in dates[y][m][d][h]) {
+								for(var mi in dates[y][m][d][h]){
 
-							}
+								}
 						}
 					}
 					// var w = dates[y][m].length * cellWidth;
@@ -221,7 +221,7 @@ behavior: {
 			gridDiv.css("width", w + "px");
 			for (var i = 0; i < data.length; i++) {
 				for (var j = 0; j < data[i].series.length; j++) {
-					gridDiv.append(rowDiv.clone());
+						gridDiv.append(rowDiv.clone());
 				}
 			}
 			div.append(gridDiv);
@@ -231,7 +231,7 @@ behavior: {
 			var blocksDiv = jQuery("<div>", { "class": "ganttview-blocks" });
 			for (var i = 0; i < data.length; i++) {
 				for (var j = 0; j < data[i].series.length; j++) {
-					blocksDiv.append(jQuery("<div>", { "class": "ganttview-block-container" }));
+						blocksDiv.append(jQuery("<div>", { "class": "ganttview-block-container" }));
 				}
 			}
 			div.append(blocksDiv);
@@ -242,10 +242,9 @@ behavior: {
 			var rowIdx = 0;
 			for (var i = 0; i < data.length; i++) {
 				for (var j = 0; j < data[i].series.length; j++) {
-					var series = data[i].series[j];
-					for (var k = 0; k < data[i].series[j].start.length; k++) {
-						var size = DateUtils.hoursBetween(series.start[k], series.end[k]) + 1;
-						var offset = DateUtils.hoursBetween(start, series.start[k]);
+						var series = data[i].series[j];
+						var size = DateUtils.hoursBetween(series.start, series.end) + 1;
+						var offset = DateUtils.hoursBetween(start, series.start);
 						var block = jQuery("<div>", {
 							"class": "ganttview-block",
 							"title": series.name + ", " + size + " hours",
@@ -261,7 +260,6 @@ behavior: {
 						block.append(jQuery("<div>", { "class": "ganttview-block-text" }).text(size));
 						jQuery(rows[rowIdx]).append(block);
 						rowIdx = rowIdx + 1;
-					}
 				}
 			}
 		}
@@ -397,13 +395,11 @@ behavior: {
 			var minStart = new Date(); maxEnd = new Date();
 			for (var i = 0; i < data.length; i++) {
 				for (var j = 0; j < data[i].series.length; j++) {
-					for (var k = 0; k < data[i].series[j].start.length; k++) {
-						var start = Date.parse(data[i].series[j].start[k]);
-						var end = Date.parse(data[i].series[j].end[k]);
-						if (i == 0 && j == 0) { minStart = start; maxEnd = end; }
-						if (minStart.compareTo(start) == 1) { minStart = start; }
-						if (maxEnd.compareTo(end) == -1) { maxEnd = end; }
-					}
+					var start = Date.parse(data[i].series[j].start);
+					var end = Date.parse(data[i].series[j].end)
+					if (i == 0 && j == 0) { minStart = start; maxEnd = end; }
+					if (minStart.compareTo(start) == 1) { minStart = start; }
+					if (maxEnd.compareTo(end) == -1) { maxEnd = end; }
 				}
 			}
 
