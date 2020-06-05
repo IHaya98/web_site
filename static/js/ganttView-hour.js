@@ -162,9 +162,10 @@ behavior: {
 
 		function addHzHeader(div, dates, cellWidth) {
 			var headerDiv = jQuery("<div>", { "class": "ganttview-hzheader" });
-			var monthsDiv = jQuery("<div>", { "class": "ganttview-hzheader-months" });
+			//var monthsDiv = jQuery("<div>", { "class": "ganttview-hzheader-months" });
 			var daysDiv = jQuery("<div>", { "class": "ganttview-hzheader-days" });
 			var hoursDiv = jQuery("<div>", { "class": "ganttview-hzheader-hours" });
+			var minutesDiv = jQuery("<div>", { "class": "ganttview-hzheader-minutes" });
 			//var totalW = 0;
 			var totalWs = 0 ;
 			for (var y in dates) {
@@ -175,10 +176,13 @@ behavior: {
 						daysDiv.append(jQuery("<div>", {
 							"class": "ganttview-hzheader-day",
 							"css": { "width": (ws - 1) + "px" }
-						}).append(d));
+						}).append(y+"/"+monthNames[m]+"/"+d));
 						for (var h in dates[y][m][d]) {
 							hoursDiv.append(jQuery("<div>", { "class": "ganttview-hzheader-hour" })
 								.append(dates[y][m][d][h].getHours()));
+								for(var mi in dates[y][m][d][h]){
+
+								}
 						}
 					}
 					// var w = dates[y][m].length * cellWidth;
@@ -192,7 +196,7 @@ behavior: {
 			// monthsDiv.css("width", totalWs + "px");
 			daysDiv.css("width", totalWs + "px");
 			hoursDiv.css("width", totalWs + "px");
-			headerDiv.append(monthsDiv).append(daysDiv).append(hoursDiv);
+			headerDiv.append(daysDiv).append(hoursDiv);
 			div.append(headerDiv);
 		}
 
@@ -239,11 +243,11 @@ behavior: {
 			for (var i = 0; i < data.length; i++) {
 				for (var j = 0; j < data[i].series.length; j++) {
 						var series = data[i].series[j];
-						var size = DateUtils.daysBetween(series.start, series.end) + 1;
-						var offset = DateUtils.daysBetween(start, series.start);
+						var size = DateUtils.hoursBetween(series.start, series.end) + 1;
+						var offset = DateUtils.hoursBetween(start, series.start);
 						var block = jQuery("<div>", {
 							"class": "ganttview-block",
-							"title": series.name + ", " + size + " days",
+							"title": series.name + ", " + size + " hours",
 							"css": {
 								"width": ((size * cellWidth) - 9) + "px",
 								"margin-left": ((offset * cellWidth) + 3) + "px"
@@ -364,6 +368,15 @@ behavior: {
 	};
 
 	var DateUtils = {
+
+		hoursBetween: function (start, end) {
+			if (!start || !end) { return 0; }
+			start = Date.parse(start); end = Date.parse(end);
+			if (start.getYear() == 1901 || end.getYear() == 8099) { return 0; }
+			var count = 0, date = start.clone();
+			while (date.compareTo(end) == -1) { count = count + 1; date.addHours(1); }
+			return count;
+		},
 
 		daysBetween: function (start, end) {
 			if (!start || !end) { return 0; }
