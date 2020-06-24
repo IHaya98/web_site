@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./static/css/jquery-ui-1.8.4.css" />
+    <link rel="stylesheet" type="text/css" href="./static/css/bootstrap.min.css" />
+
+
+    <title>Git Command</title>
+</head>
+
+<body class="bg-secondary text-white">
+    <nav class="nav nav-pills">
+        <a class="nav-item nav-link bg-white" href="index.html">Home</a>
+        <a class="nav-item nav-link active" href="git_command.html">Git</a>
+        <a class="nav-item nav-link bg-white" href="https://getbootstrap.jp/docs/4.4/getting-started/introduction/"
+            onclick="if(!confirm('外部リンクへ移動します。\nhttps://getbootstrap.jp/docs/4.4/getting-started/introduction/')){return false;};">BootstrapDocument</a>
+    </nav>
+    <div class="container my-5">
+        <h1>
+            ★Gitの操作方法★
+        </h1>
+        <div class="">
+            <h2 class="mt-4">
+                ★Gitの基本操作★
+            </h2>
+            <h5>
+                ①ローカルリポジトリの作成
+            </h5>
+            <div class="row">
+                <li class="col-4"><code>mkdir [フォルダ名]</code></li>
+                <li class="col-4"><code>cd [フォルダ名]</code></li>
+                <li class="col-4"><code>git init</code></li>
+            </div>
+            <div><code>git init</code>コマンドはGitリポジトリを新たに作成するコマンド</div>
+            <h5>
+                ②ファイルの作成・変更・削除をgitインデックスに追加する(git add)
+            </h5>
+            <div class="row">
+                <li class="col"><code>git add [ファイル名］</code></li>
+            </div>
+            <div>インデックスとはリポジトリにコミットする準備をするために変更内容を一時的に保存する場所のことです</div>
+            <h5>
+                ③変更内容をローカルリポジトリにコミットする(git commit)
+            </h5>
+            <div class="row">
+                <li class="col"><code>git commit -m “コメント”</code></li>
+            </div>
+            <div>変更内容をコメントに残してコミットする</div>
+            <div class="row">
+                <li class="col"><code>git status</code></li>
+            </div>
+            <div>ファイルが追加されているか確認</div>
+            <div class="row">
+                <li class="col"><code>git remote add origin [リモートリポジトリのアドレス]</code></li>
+            </div>
+            <div>リモートリポジトリに反映される前にリモートリポジトリの情報を追加する</div>
+            <h5>
+                ④ローカルリポジトリをプッシュしてリモートリポジトリに反映させる(git push)
+            </h5>
+            <div class="row">
+                <li class="col"><code>git push origin master</code></li>
+            </div>
+            <div>この時にユーザ名とパスワードを聞かれる</div>
+        </div>
+        <div class="">
+            <h2 class="mt-4">
+                ★ブランチの作成★
+            </h2>
+            <h5>現在のブランチ一覧を確認</h5>
+            <div class="row">
+                <li class="col"><code>git branch</code></li>
+            </div>
+            <h5>ブランチを作成</h5>
+            <div class="row">
+                <li class="col"><code>git branch [ブランチ名]</code></li>
+            </div>
+            <h5>ブランチの移動</h5>
+            <div class="row">
+                <li class="col"><code>git branch checkout [ブランチ名]</code></li>
+            </div>
+            <h5>※ブランチの作成と移動</h5>
+            <div class="row">
+                <li class="col"><code>git branch -b [ブランチ名]</code></li>
+            </div>
+            <h5>リモートリポジトリに反映</h5>
+            <div class="row">
+                <li class="col"><code>git push origin [ブランチ名]</code></li>
+                <li class="col"><code>※git push -f origin [ブランチ名]</code></li>
+            </div>
+            <div>強制的にプッシュする</div>
+        </div>
+        <div class="">
+            <h2 class="mt-4">
+                ★ブランチからプル★
+            </h2>
+            <h5>他の開発者がブランチで作業を行う場合、
+                作成したリポジトリにチェックアウトする</h5>
+            <div class="row">
+                <li class="col"><code>git checkout [ブランチ名]</code></li>
+            </div>
+            <h5>リモートブランチのコードを取得する</h5>
+            <div class="row">
+                <li class="col"><code>git pull</code></li>
+            </div>
+            <h5>ファイルの確認</h5>
+            <div class="row">
+                <li class="col"><code>ls</code></li>
+            </div>
+        </div>
+        <div class="">
+            <h2 class="mt-4">
+                ★ブランチのマージ★
+            </h2>
+            <h5>作業中のブランチをメインのブランチに切り替える</h5>
+            <div class="row">
+                <li class="col"><code>git checkout [メインのブランチ名]</code></li>
+            </div>
+            <h5>作業用のブランチをメインのブランチにマージする</h5>
+            <div class="row">
+                <li class="col"><code>git merge [作業用のブランチ名]</code></li>
+            </div>
+            <h5>リモートリポジトリに反映させる</h5>
+            <div class="row">
+                <li class="col"><code>git push origin [メインのブランチ名]</code></li>
+            </div>
+        </div>
+        <div class="">
+            <h2 class="mt-4">
+                ★ブランチの削除★
+            </h2>
+            <h5>使わなくなったブランチの削除</h5>
+            <div class="row">
+                <li class="col"><code>git branch -d [削除するブランチ名]</code></li>
+            </div>
+            <h5>結果の確認</h5>
+            <div class="row">
+                <li class="col"><code>git status</code></li>
+            </div>
+        </div>
+        <div class="">
+            <h2 class="mt-4">
+                ★よく使うコマンド★
+            </h2>
+            <h5>リポジトリの状態を確認する</h5>
+            <div class="row">
+                <li class="col"><code>git status</code></li>
+            </div>
+            <h5>ファイルやディレクトリをインデックスに追加する</h5>
+            <div class="row">
+                <li class="col"><code>git add [ファイル名]</code></li>
+            </div>
+            <h5>インデックスに追加されたファイルやフォルダの変更をリポジトリに書き込む</h5>
+            <div class="row">
+                <li class="col"><code>git commit [オプション]　”コメント”</code></li>
+            </div>
+            <h6>オプション</h6>
+            <div>
+                -a
+                変更されたファイルを検出してインデックスに追加する動作も同時に行います
+                -m
+                ダブルクォーテーションで囲ったメッセージを指定する</div>
+            <h4>★git branch ブランチに対して各種操作を行う</h4>
+            <h5>ブランチの作成</h5>
+            <div class="row">
+                <li class="col"><code>git branch [ブランチ名]</code></li>
+            </div>
+            <h5>ブランチの一覧表示</h5>
+            <div class="row">
+                <li class="col"><code>git branch</code></li>
+            </div>
+            <h5>指定したブランチの削除</h5>
+            <div class="row">
+                <li class="col"><code>git branch -d [ブランチ名]</code></li>
+            </div>
+            <h5>ローカルリポジトリのブランチを切り替える</h5>
+            <div class="row">
+                <li class="col"><code>git checkout [ブランチ名]</code></li>
+            </div>
+            <h5>ローカルリポジトリのコミット履歴を閲覧</h5>
+            <div class="row">
+                <li class="col"><code>git log [オプション]</code></li>
+            </div>
+            <h6>オプション</h6>
+            <div>
+                -n
+                履歴の表示数を指定できる</div>
+            <h5>リポジトリのファイルの内容から検索する</h5>
+            <div class="row">
+                <li class="col"><code>git grep “検索単語”</code></li>
+            </div>
+            <h5>既存のリモートリポジトリをローカルに落とす</h5>
+            <div class="row">
+                <li class="col"><code>git clone [既存のリモートリポジトリのURL]</code></li>
+            </div>
+            <h4>★git remote リモートリポジトリを操作する</h4>
+            <h5>リモートリポジトリの名称一覧を表示</h5>
+            <div class="row">
+                <li class="col"><code>git remote</code></li>
+            </div>
+            <h5>リモートリポジトリの詳細一覧を表示</h5>
+            <div class="row">
+                <li class="col"><code>git remote -v</code></li>
+            </div>
+            <h5>リモートリポジトリを追加</h5>
+            <div class="row">
+                <li class="col"><code>git remote add [リポジトリ名] [リモートリポジトリのURL]</code></li>
+            </div>
+            <h5>リモートリポジトリを削除</h5>
+            <div class="row">
+                <li class="col"><code>git remote rm [リポジトリ名]</code></li>
+            </div>
+            <h5>ローカルリポジトリのコミットを取り消す</h5>
+            <div class="row">
+                <li class="col"><code>git reset</code></li>
+            </div>
+            <h5>現在のブランチに対して他のブランチで行った変更を取り込む</h5>
+            <div class="row">
+                <li class="col"><code>git merge</code></li>
+            </div>
+            <h5>作業していたブランチをメインのブランチへ変更を取り込む</h5>
+            <div class="row">
+                <li class="col"><code>git merge [作業していたブランチ]</code></li>
+            </div>
+            <div>例）git checkout [メインのブランチ]</div>
+            <h5>リモートリポジトリの変更を取り込む</h5>
+            <div class="row">
+                <li class="col"><code>git pull</code></li>
+            </div>
+            <div>例）git checkout [ローカルリポジトリのブランチ]</div>
+            <h5>ローカルリポジトリのブランチにリモートリポジトリのブランチを取り込む</h5>
+            <div class="row">
+                <li class="col"><code>git pull [リモートリポジトリのブランチ]</code></li>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="./static/js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./static/js/bootstrap.min.js"></script>
+</body>
+
+</html>
